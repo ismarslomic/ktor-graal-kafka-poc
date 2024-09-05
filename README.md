@@ -1,7 +1,7 @@
 # Kafka Streams microservice using Ktor and GraalVM
 
-> PoC of consuming and producing message to Kafka Broker with use of Apache Kafka Streams API, built and run with
-> use of Ktor and GraalVM.
+> This repo is a PoC of consuming and producing messages to Kafka Broker with use of Apache Kafka Streams, built and
+> run with use of Ktor and GraalVM.
 
 ## Limitations & Known issues
 
