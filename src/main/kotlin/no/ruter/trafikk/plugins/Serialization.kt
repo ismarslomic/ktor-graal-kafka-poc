@@ -1,4 +1,4 @@
-package trafikk.ruter.no.plugins
+package no.ruter.trafikk.plugins
 
 import io.ktor.serialization.kotlinx.json.json
 import io.ktor.server.application.Application

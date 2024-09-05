@@ -1,4 +1,4 @@
-package trafikk.ruter.no.plugins
+package no.ruter.trafikk.plugins
 
 import io.ktor.server.application.Application
 import io.ktor.server.application.call

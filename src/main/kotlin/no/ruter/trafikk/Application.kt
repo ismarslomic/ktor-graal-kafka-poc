@@ -1,12 +1,12 @@
-package trafikk.ruter.no
+package no.ruter.trafikk
 
 import io.ktor.server.cio.CIO
 import io.ktor.server.engine.embeddedServer
-import trafikk.ruter.no.plugins.configureMonitoring
-import trafikk.ruter.no.plugins.configureRouting
-import trafikk.ruter.no.plugins.configureSerialization
+import no.ruter.trafikk.plugins.configureMonitoring
+import no.ruter.trafikk.plugins.configureRouting
+import no.ruter.trafikk.plugins.configureSerialization
 
-fun main(args: Array<String>) {
+fun main() {
     // See https://ktor.io/docs/server-engines.html#choose-create-server
     embeddedServer(CIO, port = 8080, host = "0.0.0.0") {
         configureMonitoring()

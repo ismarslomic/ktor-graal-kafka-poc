@@ -27,7 +27,7 @@
     "allDeclaredConstructors": true
   },
   {
-    "name": "trafikk.ruter.no.ApplicationKt",
+    "name": "no.ruter.trafikk.ApplicationKt",
     "allPublicMethods": true,
     "allDeclaredFields":true,
     "allDeclaredMethods":true,

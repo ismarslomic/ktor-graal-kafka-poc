@@ -10,11 +10,11 @@ plugins {
     id("com.github.ben-manes.versions") version "0.51.0"
 }
 
-group = "trafikk.ruter.no"
+group = "no.ruter.trafikk"
 version = "0.0.1"
 
 application {
-    mainClass.set("trafikk.ruter.no.ApplicationKt")
+    mainClass.set("no.ruter.trafikk.ApplicationKt")
 
     val isDevelopment: Boolean = project.ext.has("development")
     applicationDefaultJvmArgs = listOf("-Dio.ktor.development=$isDevelopment")
