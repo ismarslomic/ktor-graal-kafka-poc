@@ -3,7 +3,17 @@
 > PoC of consuming and producing message to Kafka Broker with use of Apache Kafka Streams API, built and run with
 > use of Ktor and GraalVM.
 
-## Prerequisites
+## Limitations & Known issues
+
+- Currently, Ktor Server applications that want to leverage GraalVM have to use CIO (Coroutine-based I/O engine) as
+  the [application engine](https://ktor.io/docs/server-engines.html).
+- The automatic loading of configuration file (`application.yaml`), for configuring the server, does not work
+  with GraalVM native image. See [KTOR-3453](https://youtrack.jetbrains.com/issue/KTOR-3453)
+  and [KTOR-6069](https://youtrack.jetbrains.com/issue/KTOR-6069).
+- Micrometer Prometheus (v1.13.0) generates configuration log warning at startup,
+  see [KTOR-7035](https://youtrack.jetbrains.com/issue/KTOR-7035).
+
+## Build
 
 ### Install GraalVM (for Mac)
 
@@ -26,7 +36,35 @@ Java HotSpot(TM) 64-Bit Server VM Oracle GraalVM 22.0.2+9.1 (build 22.0.2+9-jvmc
 
 Note! jenv will report a deprecation warning, but you can ignore it.
 
+### Build and run native GraalVM image
+
+```bash
+$ ./gradlew nativeCompile
+```
+
+Run the executable file produced by the build step
+
+```bash
+$ ./build/native/nativeCompile/graalvm-server
+```
+
+### Build and run tests
+
+To build an executable file for tests:
+
+```bash
+$ ./gradlew nativeTestCompile
+
+```
+
+Run the executable file produced by the build step
+
+```bash
+$ ./build/native/nativeTestCompile/graalvm-test-server
+```
+
 ## Metrics
+
 ```bash
 curl http://localhost:8080/metrics
 
