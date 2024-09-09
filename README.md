@@ -55,6 +55,9 @@ $ confluent local services start
 
 Confluent Control Center is available at http://localhost:9021
 
+Overview of ports for all services in Confluent
+Platform: [Ports](https://docs.confluent.io/platform/current/installation/system-requirements.html#ports)
+
 To check **status** of all Confluent Platform services
 
 ```bash
