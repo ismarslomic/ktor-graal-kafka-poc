@@ -1,4 +1,4 @@
-package no.ruter.trafikk.plugins
+package no.tet.sandbox.plugins
 
 import io.ktor.server.application.Application
 import io.ktor.server.application.call

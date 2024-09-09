@@ -6,7 +6,7 @@
 #ktor:
 #  application:
 #    modules:
-#      - no.ruter.trafikk.ApplicationKt.module
+#      - no.tet.sandbox.ApplicationKt.module
 #  deployment:
 #    port: 8080
 

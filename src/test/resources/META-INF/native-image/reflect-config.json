@@ -9,7 +9,7 @@
     "allPublicMethods": true
   },
   {
-    "name": "no.ruter.trafikk.ApplicationKt",
+    "name": "no.tet.sandbox.ApplicationKt",
     "allPublicMethods": true,
     "allDeclaredFields":true,
     "allDeclaredMethods":true,

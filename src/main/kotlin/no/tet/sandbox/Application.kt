@@ -1,10 +1,10 @@
-package no.ruter.trafikk
+package no.tet.sandbox
 
 import io.ktor.server.cio.CIO
 import io.ktor.server.engine.embeddedServer
-import no.ruter.trafikk.plugins.configureMonitoring
-import no.ruter.trafikk.plugins.configureRouting
-import no.ruter.trafikk.plugins.configureSerialization
+import no.tet.sandbox.plugins.configureMonitoring
+import no.tet.sandbox.plugins.configureRouting
+import no.tet.sandbox.plugins.configureSerialization
 
 fun main() {
     // See https://ktor.io/docs/server-engines.html#choose-create-server
