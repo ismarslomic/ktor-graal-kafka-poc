@@ -1,12 +1,9 @@
 # See https://ktor.io/docs/server-configuration-file.html#config-basic and
 # https://ktor.io/docs/server-configuration-file.html#predefined-properties
 
-# NOT IN USE CURRENTLY, READ README
-
-#ktor:
-#  application:
-#    modules:
-#      - no.tet.sandbox.ApplicationKt.module
-#  deployment:
-#    port: 8080
-
+### KTOR ###
+ktor:
+  # Deployment
+  deployment:
+    port: 8079
+    host: 0.0.0.0

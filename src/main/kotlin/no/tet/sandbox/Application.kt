@@ -1,16 +1,29 @@
 package no.tet.sandbox
 
+import io.ktor.server.application.Application
 import io.ktor.server.cio.CIO
 import io.ktor.server.engine.embeddedServer
 import no.tet.sandbox.plugins.configureMonitoring
 import no.tet.sandbox.plugins.configureRouting
 import no.tet.sandbox.plugins.configureSerialization
+import no.tet.sandbox.properties.KtorPropertiesHolder
+import no.tet.sandbox.properties.loadProperties
 
 fun main() {
-    // See https://ktor.io/docs/server-engines.html#choose-create-server
-    embeddedServer(CIO, port = 8080, host = "0.0.0.0") {
-        configureMonitoring()
-        configureSerialization()
-        configureRouting()
-    }.start(wait = true)
+    val ktorProperties = loadProperties<KtorPropertiesHolder>().ktor
+
+    with(ktorProperties.deployment) {
+        embeddedServer(
+            CIO,
+            port = port,
+            host = host,
+            module = Application::module,
+        ).start(wait = true)
+    }
+}
+
+fun Application.module() {
+    configureMonitoring()
+    configureSerialization()
+    configureRouting()
 }

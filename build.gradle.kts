@@ -1,6 +1,7 @@
 val kotlinVersion: String by project
 val logbackVersion: String by project
 val prometheusVersion: String by project
+val hopliteVersion: String by project
 
 plugins {
     kotlin("jvm") version "2.0.20"
@@ -33,12 +34,15 @@ dependencies {
     implementation("io.ktor:ktor-server-cio-jvm")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("io.ktor:ktor-server-config-yaml")
+    implementation("com.sksamuel.hoplite:hoplite-yaml:$hopliteVersion")
     testImplementation("io.ktor:ktor-server-test-host-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
 }
 
 // See https://graalvm.github.io/native-build-tools/0.10.2/gradle-plugin.html
 graalvmNative {
+    val resourcePath = "${projectDir}/META-INF/native-image/"
+
     binaries {
 
         named("main") {
@@ -75,7 +79,11 @@ graalvmNative {
                 "-H:+ReportUnsupportedElementsAtRuntime",
                 "-H:+ReportExceptionStackTraces",
 
-                // "-H:IncludeResources=application.yaml" // Not working with GraalVM, see KTOR-3453
+                "-H:IncludeResources=application.yaml",
+                "-H:IncludeResources=application-development.yaml",
+
+                "-H:ReflectionConfigurationFiles=${resourcePath}/reflect-config.json",
+                "-H:ResourceConfigurationFiles=${resourcePath}/resource-config.json",
             )
         }
 
@@ -84,8 +92,6 @@ graalvmNative {
             imageName = "graalvm-test-server"
             fallback = false
             verbose = true
-
-            val resourcePath = "${projectDir}/src/test/resources/META-INF/native-image/"
 
             buildArgs.addAll(
                 "--initialize-at-build-time=ch.qos.logback",
@@ -116,8 +122,8 @@ graalvmNative {
                 "-H:+ReportUnsupportedElementsAtRuntime",
                 "-H:+ReportExceptionStackTraces",
 
-                "-H:ReflectionConfigurationFiles=${resourcePath}reflect-config.json",
-                "-H:ResourceConfigurationFiles=${resourcePath}resource-config.json",
+                "-H:ReflectionConfigurationFiles=${resourcePath}/reflect-config.json",
+                "-H:ResourceConfigurationFiles=${resourcePath}/resource-config.json",
             )
         }
     }
