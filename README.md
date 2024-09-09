@@ -36,6 +36,43 @@ Java HotSpot(TM) 64-Bit Server VM Oracle GraalVM 22.0.2+9.1 (build 22.0.2+9-jvmc
 
 Note! jenv will report a deprecation warning, but you can ignore it.
 
+### Run Kafka locally (optional)
+
+If you prefer to use a local instance of Kafka broker, for test purpose, you can follow the
+[Install Confluent Platform using ZIP and TAR Archives](https://docs.confluent.io/platform/current/installation/installing_cp/zip-tar.html#prod-kafka-cli-install).
+
+You can find all Confluent CLI commands
+in [Confluent CLI Command Reference](https://docs.confluent.io/confluent-cli/current/command-reference/overview.html).
+
+Note! Confluent Platform v7.7.x supports up to JDK 17,
+see [System Requirements - Java](https://docs.confluent.io/platform/current/installation/system-requirements.html#java).
+
+To **start** Confluent Platform for testing purpose
+
+```bash
+$ confluent local services start
+```
+
+Confluent Control Center is available at http://localhost:9021
+
+To check **status** of all Confluent Platform services
+
+```bash
+$ confluent local services status
+```
+
+To **stop** Confluent Platform for testing purpose
+
+```bash
+$ confluent local services stop
+```
+
+To **destroy** local Confluent Platform
+
+```bash
+$ confluent local destroy
+```
+
 ### Build and run native GraalVM image
 
 ```bash
@@ -54,7 +91,6 @@ To build an executable file for tests:
 
 ```bash
 $ ./gradlew nativeTestCompile
-
 ```
 
 Run the executable file produced by the build step
@@ -67,5 +103,4 @@ $ ./build/native/nativeTestCompile/graalvm-test-server
 
 ```bash
 curl http://localhost:8080/metrics
-
 ```
