@@ -1,12 +1,14 @@
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+
 val kotlinVersion: String by project
 val logbackVersion: String by project
 val prometheusVersion: String by project
 
 plugins {
-    kotlin("jvm") version "2.0.20"
-    id("io.ktor.plugin") version "2.3.12"
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.20"
-    id("org.graalvm.buildtools.native") version "0.10.2"
+    kotlin("jvm") version "2.1.0"
+    id("io.ktor.plugin") version "3.0.3"
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.1.0"
+    id("org.graalvm.buildtools.native") version "0.10.4"
     id("com.github.ben-manes.versions") version "0.51.0"
 }
 
@@ -61,6 +63,7 @@ graalvmNative {
                 "--initialize-at-build-time=kotlinx.serialization.json.JsonConfiguration",
                 "--initialize-at-build-time=kotlinx.serialization.modules.SerialModuleImpl",
                 "--initialize-at-build-time=kotlinx.serialization.json.internal.DescriptorSchemaCache",
+                "--initialize-at-build-time=kotlinx.serialization.json.ClassDiscriminatorMode",
                 "--initialize-at-build-time=org.xml.sax.helpers.LocatorImpl",
                 "--initialize-at-build-time=org.xml.sax.helpers.AttributesImpl",
 
@@ -70,6 +73,8 @@ graalvmNative {
                 "--initialize-at-build-time=kotlinx.io.Buffer",
                 "--initialize-at-build-time=kotlinx.io.Segment",
                 "--initialize-at-build-time=kotlinx.io.Segment\$Companion",
+                "--initialize-at-build-time=kotlinx.io.bytestring.ByteString",
+                "--initialize-at-build-time=kotlinx.io.bytestring.ByteString\$Companion",
 
                 "-H:+InstallExitHandlers",
                 "-H:+ReportUnsupportedElementsAtRuntime",
@@ -127,5 +132,22 @@ graalvmNative {
         testLogging {
             events("passed", "skipped", "failed")
         }
+    }
+}
+
+fun isNonStable(version: String): Boolean {
+    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
+    val regex = "^[0-9,.v-]+(-r)?$".toRegex()
+    val isStable = stableKeyword || regex.matches(version)
+    return isStable.not()
+}
+
+tasks.withType<DependencyUpdatesTask> {
+    // ignore release candidates when checking for new gradle version
+    gradleReleaseChannel = "current"
+
+    // ignore release candidates as upgradable versions from stable versions for all other gradle dependencies
+    rejectVersionIf {
+        isNonStable(candidate.version) && !isNonStable(currentVersion)
     }
 }
