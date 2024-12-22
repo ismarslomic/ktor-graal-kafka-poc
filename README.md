@@ -7,9 +7,6 @@
 
 - Currently, Ktor Server applications that want to leverage GraalVM have to use CIO (Coroutine-based I/O engine) as
   the [application engine](https://ktor.io/docs/server-engines.html).
-- The automatic loading of configuration file (`application.yaml`), for configuring the server, does not work
-  with GraalVM native image. See [KTOR-3453](https://youtrack.jetbrains.com/issue/KTOR-3453)
-  and [KTOR-6069](https://youtrack.jetbrains.com/issue/KTOR-6069).
 - Micrometer Prometheus (v1.13.0) generates configuration log warning at startup,
   see [KTOR-7035](https://youtrack.jetbrains.com/issue/KTOR-7035).
 
@@ -54,6 +51,9 @@ $ confluent local services start
 ```
 
 Confluent Control Center is available at http://localhost:9021
+
+Overview of ports for all services in Confluent
+Platform: [Ports](https://docs.confluent.io/platform/current/installation/system-requirements.html#ports)
 
 To check **status** of all Confluent Platform services
 

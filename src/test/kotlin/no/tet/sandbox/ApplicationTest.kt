@@ -1,4 +1,4 @@
-package no.ruter.trafikk
+package no.tet.sandbox
 
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
