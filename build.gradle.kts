@@ -41,7 +41,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlinVersion")
 }
 
-// See https://graalvm.github.io/native-build-tools/0.10.2/gradle-plugin.html
+// See https://graalvm.github.io/native-build-tools/0.10.4/gradle-plugin.html
 graalvmNative {
     val resourcePath = "${projectDir}/META-INF/native-image/"
 
@@ -92,7 +92,7 @@ graalvmNative {
             )
         }
 
-        // See https://graalvm.github.io/native-build-tools/0.10.2/gradle-plugin.html#testing-support
+        // See https://graalvm.github.io/native-build-tools/0.10.4/gradle-plugin.html#testing-support
         named("test") {
             imageName = "graalvm-test-server"
             fallback = false
@@ -113,6 +113,7 @@ graalvmNative {
                 "--initialize-at-build-time=kotlinx.serialization.json.JsonConfiguration",
                 "--initialize-at-build-time=kotlinx.serialization.modules.SerialModuleImpl",
                 "--initialize-at-build-time=kotlinx.serialization.json.internal.DescriptorSchemaCache",
+                "--initialize-at-build-time=kotlinx.serialization.json.ClassDiscriminatorMode",
                 "--initialize-at-build-time=org.xml.sax.helpers.LocatorImpl",
                 "--initialize-at-build-time=org.xml.sax.helpers.AttributesImpl",
 
@@ -122,6 +123,8 @@ graalvmNative {
                 "--initialize-at-build-time=kotlinx.io.Buffer",
                 "--initialize-at-build-time=kotlinx.io.Segment",
                 "--initialize-at-build-time=kotlinx.io.Segment\$Companion",
+                "--initialize-at-build-time=kotlinx.io.bytestring.ByteString",
+                "--initialize-at-build-time=kotlinx.io.bytestring.ByteString\$Companion",
 
                 "-H:+InstallExitHandlers",
                 "-H:+ReportUnsupportedElementsAtRuntime",
